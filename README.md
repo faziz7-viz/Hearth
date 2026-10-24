@@ -45,7 +45,14 @@ Approval exists only on the local review-card API, outside the public gateway. I
 
 The verified development environment is macOS, Python **3.14.6**, Node **25.9.0**, npm **11.12.1**, and Git. Frontend tests execute TypeScript directly with Node; use the verified Node version when reproducing the results. Other operating systems/runtime versions have not been verified. Voice additionally needs a microphone, internet, `cloudflared`, and an ElevenLabs account with **Agents access and available credits/minutes**.
 
-Open Terminal in the project root—the folder containing `backend`, `frontend`, and this README. Run these once, or after dependencies change:
+For a fresh checkout, clone the repository:
+
+```sh
+git clone https://github.com/faziz7-viz/Hearth.git
+cd Hearth
+```
+
+If you already have the project, use that existing folder. Open Terminal in the project root—the folder containing `backend`, `frontend`, and this README. Run these once, or after dependencies change:
 
 ```sh
 python3 -m venv backend/.venv
@@ -208,7 +215,7 @@ M5 evidence: **143 backend/setup tests plus 11 subtests passed**, **33 frontend 
 
 ## Repository contents
 
-Source and documentation are prepared in a local Git repository. `.gitignore` excludes `.env`, local databases and journals, ElevenLabs setup state, logs, dependencies, caches, coverage, and build output. The safe `.env.example`, fictional `seed.json`, dependency lockfile, and tests are included. A GitHub destination is selected only after local preparation; no remote or published repository is implied by these files.
+Source and documentation are published at [faziz7-viz/Hearth](https://github.com/faziz7-viz/Hearth). `.gitignore` excludes `.env`, local databases and journals, ElevenLabs setup state, logs, dependencies, caches, coverage, and build output. The safe `.env.example`, fictional `seed.json`, dependency lockfile, and tests are included. GitHub hosts the source; the running application and saved local records remain on the development computer.
 
 | Path | Contents |
 | --- | --- |

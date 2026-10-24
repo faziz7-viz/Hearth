@@ -4,7 +4,7 @@
 
 Hearth turns a landlord's spoken or typed repair request into a checked, editable draft. The landlord reviews the saved details and decides whether to approve a work order. The app uses real database checks and a live ElevenLabs conversation with clearly labelled fictional demo data.
 
-This is local Markdown prepared for a Google Doc. The results below come from the completed Milestone 5 verification; preparing this overview does not record a video, upload a document, publish a repository, or submit the project.
+This is Markdown prepared for a Google Doc. The results below come from the completed Milestone 5 verification. Code and documentation are published at [faziz7-viz/Hearth](https://github.com/faziz7-viz/Hearth); the Google Doc upload, video recording, and course submission remain pending.
 
 ## Problem and intended value
 
@@ -109,6 +109,6 @@ The authoritative [Milestone 5 verification](milestone-5-verification.md) comple
 - Layout passed desktop inspection and browser emulation at 390 × 844 and 320 × 844. **Physical-phone testing remains NOT TESTED.**
 - Concurrency, revoked-contractor approval, and injected tool-failure cases use isolated real FastAPI/SQLite tests with simulated provider access. Microphone denial was tested in a session without a saved draft; saved-draft preservation for denial is covered by simulated lifecycle tests.
 - The exact earlier Chrome HTTP-polling/offline recovery sequence was not repeated after its final text fix. Regression tests passed, and subsequent live Wi-Fi loss verified saved-draft recovery.
-- Message sending, confirmed bookings, additional features, and measured business value remain outside the demonstrated scope. Recording, publication, and course submission are still separate steps.
+- Message sending, confirmed bookings, additional features, and measured business value remain outside the demonstrated scope. The Google Doc upload, recording, and course submission are still separate steps.
 
 The next product validation would observe landlords completing real coordination tasks and measure effort and error rates. It should test the intended business benefit before claiming savings.

@@ -193,3 +193,9 @@ Verification of an exported staged source tree, without the local `.env` or save
 - Git package: all 68 staged files passed the actual local-credential/session-capability scan with zero findings; no forbidden local/generated files were staged, ignore-rule checks passed, and `git diff --cached --check` was clean.
 
 Existing M5 live outcomes remain attributed to `docs/milestone-5-verification.md`. No new microphone, recording, physical-phone, or hosted-deployment result is claimed for this packaging milestone.
+
+## October 24, 2026 — GitHub publication
+
+The user selected `https://github.com/faziz7-viz/Hearth`. Confirmed the public repository was empty and the connected account had write access. A fresh independent audit of all 68 committed files found no actual local credentials, app-session capabilities, voice-binding hashes, databases, logs, generated dependencies/output, or local provider setup state. All exclusion probes passed, and `.env.example` retained blank credential fields.
+
+Connected `origin` and pushed the prepared commit `4592e93` to `main` without forcing or replacing any remote history. Updated the README with clone instructions and the repository link, and marked only the GitHub publication task complete in both plan copies. The application code and saved records were not changed. Existing clean-export test/build results above still apply; these follow-up changes are documentation only. Google Doc creation, video recording, and course submission remain pending; Milestone 7 stays deferred.

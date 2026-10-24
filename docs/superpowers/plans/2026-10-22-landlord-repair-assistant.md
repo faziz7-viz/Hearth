@@ -220,12 +220,12 @@ Record actual pass/fail results. Do not invent results or time saved.
 
 **Deliverable:** GitHub repository, Google Doc, and a video of five minutes or less.
 
-**Local submission package prepared October 24, 2026:** the [Google Doc source](../../submission-overview.md) and [4:30 recording script](../../demo-script.md) are ready. A local Git repository excludes secrets, databases, logs, and generated files. Creating/uploading the Google Doc, recording the video, selecting/publishing to GitHub, and course submission remain separate steps; this preparation does not mark those complete. Milestone 7 remains deferred.
+**Submission package status October 24, 2026:** the [Google Doc source](../../submission-overview.md) and [4:30 recording script](../../demo-script.md) are ready. Code and documentation are published at [faziz7-viz/Hearth](https://github.com/faziz7-viz/Hearth), excluding secrets, databases, logs, and generated files. Creating/uploading the Google Doc, recording the video, and course submission remain separate steps; this preparation does not mark those complete. Milestone 7 remains deferred.
 
 - [x] Finish the README with setup commands, required keys, demo data, architecture, and current limitations.
 - [ ] Prepare the Google Doc from the build log: overview, data, coding prompts, iterations, observations, and actual test results.
 - [ ] Record a short live demonstration: landlord problem, voice request, visible record checks, edited approval, saved work order, and one failure case.
-- [ ] Put the code in the user's chosen GitHub repository. Check that secrets and generated databases are excluded.
+- [x] Put the code in the user's chosen GitHub repository. Check that secrets and generated databases are excluded.
 - [ ] Submit through the course form after the user reviews the final materials.
 
 The handout gives Sunday, October 25, 2026 as the Builder of the Week deadline and does not state a cutoff time. Aim to finish and record on Saturday, October 24. The separate certification deadline is November 11.
