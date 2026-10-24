@@ -1,0 +1,292 @@
+{
+  "lookup_property": {
+    "tool_config": {
+      "type": "webhook",
+      "name": "lookup_property",
+      "description": "Find fictional Hearth properties and units from the landlord's words. Call first and whenever the location changes. Return choices and ask clarification unless a property AND unit are uniquely matched; never guess. Also returns the current bound draft.",
+      "execution_mode": "immediate",
+      "response_timeout_secs": 20,
+      "interruption_mode": "allow",
+      "pre_tool_speech": "auto",
+      "tool_error_handling_mode": "passthrough",
+      "follow_redirects": false,
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {
+          "secret__hearth_binding": "UNBOUND"
+        }
+      },
+      "api_schema": {
+        "url": "__HEARTH_VOICE_PUBLIC_URL__/voice/tools/lookup_property",
+        "method": "POST",
+        "content_type": "application/json",
+        "request_headers": {
+          "X-Hearth-Webhook-Secret": {
+            "secret_id": "__HEARTH_WORKSPACE_SECRET_ID__"
+          },
+          "X-Hearth-Binding": {
+            "variable_name": "secret__hearth_binding"
+          },
+          "X-ElevenLabs-Conversation-Id": {
+            "variable_name": "system__conversation_id"
+          }
+        },
+        "request_body_schema": {
+          "type": "object",
+          "description": "Validated parameters for this Hearth repair tool.",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Property name supplied by the landlord. Use an empty string when no property was supplied; never invent one."
+            },
+            "unit_label": {
+              "type": "string",
+              "description": "Unit label supplied by the landlord, such as 4. Use an empty string if not yet supplied."
+            }
+          },
+          "required": [
+            "query",
+            "unit_label"
+          ]
+        }
+      }
+    },
+    "response_mocks": []
+  },
+  "check_open_jobs": {
+    "tool_config": {
+      "type": "webhook",
+      "name": "check_open_jobs",
+      "description": "Read possible duplicate open or approved repairs for a verified unit and issue. Call before preparing a new draft or changing its location, issue, or category. Duplicates must be explained and clarified, never silently ignored. Does not create a job.",
+      "execution_mode": "immediate",
+      "response_timeout_secs": 20,
+      "interruption_mode": "allow",
+      "pre_tool_speech": "auto",
+      "tool_error_handling_mode": "passthrough",
+      "follow_redirects": false,
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {
+          "secret__hearth_binding": "UNBOUND"
+        }
+      },
+      "api_schema": {
+        "url": "__HEARTH_VOICE_PUBLIC_URL__/voice/tools/check_open_jobs",
+        "method": "POST",
+        "content_type": "application/json",
+        "request_headers": {
+          "X-Hearth-Webhook-Secret": {
+            "secret_id": "__HEARTH_WORKSPACE_SECRET_ID__"
+          },
+          "X-Hearth-Binding": {
+            "variable_name": "secret__hearth_binding"
+          },
+          "X-ElevenLabs-Conversation-Id": {
+            "variable_name": "system__conversation_id"
+          }
+        },
+        "request_body_schema": {
+          "type": "object",
+          "description": "Validated parameters for this Hearth repair tool.",
+          "properties": {
+            "unit_id": {
+              "type": "string",
+              "description": "Exact unit ID returned by a successful unambiguous lookup_property."
+            },
+            "category": {
+              "type": "string",
+              "description": "Repair trade supported by Hearth. Use the category that matches the issue.",
+              "enum": [
+                "plumbing",
+                "electrical",
+                "general"
+              ]
+            },
+            "issue_summary": {
+              "type": "string",
+              "description": "Factual issue description from the landlord including room and fixture when known."
+            }
+          },
+          "required": [
+            "unit_id",
+            "category",
+            "issue_summary"
+          ]
+        }
+      }
+    },
+    "response_mocks": []
+  },
+  "lookup_maintenance_context": {
+    "tool_config": {
+      "type": "webhook",
+      "name": "lookup_maintenance_context",
+      "description": "Read actual maintenance history, repair policy, and contractors approved for a verified unit and trade. Only returned approved contractors may be used. Availability is not checked. Also returns the current bound draft.",
+      "execution_mode": "immediate",
+      "response_timeout_secs": 20,
+      "interruption_mode": "allow",
+      "pre_tool_speech": "auto",
+      "tool_error_handling_mode": "passthrough",
+      "follow_redirects": false,
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {
+          "secret__hearth_binding": "UNBOUND"
+        }
+      },
+      "api_schema": {
+        "url": "__HEARTH_VOICE_PUBLIC_URL__/voice/tools/lookup_maintenance_context",
+        "method": "POST",
+        "content_type": "application/json",
+        "request_headers": {
+          "X-Hearth-Webhook-Secret": {
+            "secret_id": "__HEARTH_WORKSPACE_SECRET_ID__"
+          },
+          "X-Hearth-Binding": {
+            "variable_name": "secret__hearth_binding"
+          },
+          "X-ElevenLabs-Conversation-Id": {
+            "variable_name": "system__conversation_id"
+          }
+        },
+        "request_body_schema": {
+          "type": "object",
+          "description": "Validated parameters for this Hearth repair tool.",
+          "properties": {
+            "unit_id": {
+              "type": "string",
+              "description": "Exact unit ID returned by a successful unambiguous lookup_property."
+            },
+            "category": {
+              "type": "string",
+              "description": "Repair trade supported by Hearth. Use the category that matches the issue.",
+              "enum": [
+                "plumbing",
+                "electrical",
+                "general"
+              ]
+            }
+          },
+          "required": [
+            "unit_id",
+            "category"
+          ]
+        }
+      }
+    },
+    "response_mocks": []
+  },
+  "prepare_repair_draft": {
+    "tool_config": {
+      "type": "webhook",
+      "name": "prepare_repair_draft",
+      "description": "Create a checked repair draft or apply a spoken correction to the SAME current draft. Never approves, sends a message, creates a work order, or confirms a booking. New: draft_id=null and expected_revision=0. Edit: use the latest returned ID/revision and only changed fields. Stale/cancelled/approved drafts must not be overwritten. Read the returned status before claiming success.",
+      "execution_mode": "immediate",
+      "response_timeout_secs": 20,
+      "interruption_mode": "allow",
+      "pre_tool_speech": "auto",
+      "tool_error_handling_mode": "passthrough",
+      "follow_redirects": false,
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {
+          "secret__hearth_binding": "UNBOUND"
+        }
+      },
+      "api_schema": {
+        "url": "__HEARTH_VOICE_PUBLIC_URL__/voice/tools/prepare_repair_draft",
+        "method": "POST",
+        "content_type": "application/json",
+        "request_headers": {
+          "X-Hearth-Webhook-Secret": {
+            "secret_id": "__HEARTH_WORKSPACE_SECRET_ID__"
+          },
+          "X-Hearth-Binding": {
+            "variable_name": "secret__hearth_binding"
+          },
+          "X-ElevenLabs-Conversation-Id": {
+            "variable_name": "system__conversation_id"
+          }
+        },
+        "request_body_schema": {
+          "type": "object",
+          "description": "Validated parameters for this Hearth repair tool.",
+          "properties": {
+            "draft_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "For a new draft only, null. Otherwise the exact current draft ID returned by Hearth; never choose another ID."
+            },
+            "expected_revision": {
+              "type": "integer",
+              "description": "For a new draft only, 0. For an edit, the latest exact current draft revision returned by Hearth. Do not guess or auto-increment."
+            },
+            "fields": {
+              "type": "object",
+              "description": "Editable draft details only. For corrections, include only changed fields and preserve all unmentioned content.",
+              "properties": {
+                "property_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Exact property ID from lookup_property; null only for an incomplete draft."
+                },
+                "unit_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Exact uniquely matched unit ID from lookup_property; null only when unresolved."
+                },
+                "issue_summary": {
+                  "type": "string",
+                  "description": "Repair issue as described by the landlord, including room/fixture when supplied."
+                },
+                "category": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Supported repair trade, or null if it needs clarification.",
+                  "enum": [
+                    "plumbing",
+                    "electrical",
+                    "general"
+                  ]
+                },
+                "contractor_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Exact ID from approved_contractors for this unit/trade. Null when unresolved; never invent approval."
+                },
+                "preferred_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Requested date only, in YYYY-MM-DD format. Null if not requested or explicitly removed. Never a confirmed booking."
+                },
+                "access_notes": {
+                  "type": "string",
+                  "description": "Landlord's actual access instructions. No inferred permission. Empty string only if none or explicitly removed."
+                },
+                "contractor_message": {
+                  "type": "string",
+                  "description": "Unsent contractor message draft using only checked facts. Omit on new creation to use Hearth's grounded message. During edits preserve existing text unless the landlord asks to change it."
+                }
+              },
+              "required": []
+            }
+          },
+          "required": [
+            "draft_id",
+            "expected_revision",
+            "fields"
+          ]
+        }
+      }
+    },
+    "response_mocks": []
+  }
+}

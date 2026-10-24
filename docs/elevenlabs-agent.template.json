@@ -1,0 +1,106 @@
+{
+  "name": "Hearth Demo",
+  "conversation_config": {
+    "conversation": {
+      "text_only": false,
+      "max_duration_seconds": 600,
+      "client_events": [
+        "audio",
+        "interruption",
+        "user_transcript",
+        "agent_response",
+        "agent_response_correction",
+        "agent_tool_request",
+        "agent_tool_response",
+        "agent_tool_response_full_payload",
+        "client_error"
+      ]
+    },
+    "agent": {
+      "language": "en",
+      "first_message": "Hi, I'm Hearth. I can prepare a repair draft for you to review. What would you like to repair?",
+      "max_conversation_duration_message": "This demo conversation has reached its time limit. Your saved draft is still in Hearth.",
+      "dynamic_variables": {
+        "dynamic_variable_placeholders": {
+          "hearth_context": "No app session is bound. Do not call business tools. Start the conversation from Hearth.",
+          "secret__hearth_binding": "UNBOUND"
+        }
+      },
+      "prompt": {
+        "prompt": "__LOAD_DOCS_ELEVENLABS_AGENT_PROMPT_MD__",
+        "tool_ids": [
+          "__LOOKUP_PROPERTY_TOOL_ID__",
+          "__CHECK_OPEN_JOBS_TOOL_ID__",
+          "__LOOKUP_MAINTENANCE_CONTEXT_TOOL_ID__",
+          "__PREPARE_REPAIR_DRAFT_TOOL_ID__"
+        ],
+        "enable_parallel_tool_calls": false,
+        "temperature": 0,
+        "timezone": "America/New_York",
+        "built_in_tools": {
+          "transfer_to_agent": null,
+          "end_call": {
+            "type": "system",
+            "name": "end_call",
+            "description": "End immediately when the landlord asks to end, stop, or hang up, or says goodbye. After saving a draft, also end on All good, That's all, or No more changes. Invoke this whenever you give a final farewell such as Goodbye or Take care; never ask the landlord to press End. Keep the farewell to one short sentence of at most 12 words, with no draft summary, repeated approval instructions, or question. Ordinary thanks during an unfinished repair is not completion. Also end after a failed permitted retry or identity/binding failure. Ending never approves a repair.",
+            "interruption_mode": "disable_during_tool_and_turn",
+            "pre_tool_speech": "off",
+            "params": {
+              "system_tool_type": "end_call"
+            }
+          },
+          "language_detection": null,
+          "transfer_to_number": null,
+          "skip_turn": null,
+          "play_keypad_touch_tone": null,
+          "voicemail_detection": null
+        },
+        "mcp_server_ids": [],
+        "native_mcp_server_ids": [],
+        "knowledge_base": [],
+        "tools": []
+      }
+    }
+  },
+  "platform_settings": {
+    "auth": {
+      "enable_auth": true,
+      "allowlist": [],
+      "require_origin_header": false
+    },
+    "overrides": {
+      "conversation_config_override": {
+        "conversation": {
+          "text_only": true,
+          "max_duration_seconds": false
+        },
+        "agent": {
+          "first_message": false,
+          "language": false,
+          "prompt": {
+            "prompt": false,
+            "llm": false,
+            "tool_ids": false,
+            "tool_ids_strict": false,
+            "knowledge_base": false,
+            "native_mcp_server_ids": false
+          }
+        }
+      },
+      "custom_llm_extra_body": false,
+      "enable_conversation_initiation_client_data_from_webhook": false,
+      "enable_starting_workflow_node_id_from_client": false,
+      "enable_procedure_ids_from_client": false
+    },
+    "call_limits": {
+      "agent_concurrency_limit": 1,
+      "daily_limit": 20
+    },
+    "privacy": {
+      "record_voice": false,
+      "retention_days": 7,
+      "delete_transcript_and_pii": true,
+      "delete_audio": true
+    }
+  }
+}
